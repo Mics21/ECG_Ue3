@@ -106,7 +106,8 @@ void terrain::render_solid_terrain()
 	************/
 
 
-
+	glBindTexture(GL_TEXTURE_2D, texture_handle);
+	glEnable(GL_TEXTURE_2D);
 
 
 
@@ -205,18 +206,18 @@ void terrain::render_terrain()
 	// Go through all rows (-1)
 	for (int y = 0; y<map_height-1; y++) {
 
-		// ... to be completed
+		glBegin(GL_TRIANGLE_STRIP);
 
-		// Draw one strip
+		// Draw one strip+
 		for (int x = 0; x<map_width; x++) {
-
-			glBegin(GL_POLYGON);
-				glVertex3d(x, 0, y);
-				glVertex3d(x + 1, 0, y);
-				glVertex3d(x, 0, y + 1);
-			glEnd();
-
+			glTexCoord2d((double) x / map_width, (double) y / (map_height - 1));
+			set_normal(x, y);
+			glVertex3d(x, get_heightmap_value(x, y), y);
+			glTexCoord2d((double) x / map_width, (double) (y + 1) / (map_height - 1));
+			set_normal(x, y + 1);
+			glVertex3d(x, get_heightmap_value(x, y + 1), y + 1);
 		}
+		glEnd();
 
 	}
 
@@ -269,6 +270,18 @@ void terrain::set_normal(int x, int y)
 				   double y = vec3.y();
 				   double z = vec3.z();
    *****************/
+
+	vec3d v1(x, get_heightmap_value(x, y), y);
+	vec3d v2(x, get_heightmap_value(x, y + 1), y + 1);
+	vec3d v3(x + 1, get_heightmap_value(x + 1, y), y);
+	
+	v2 = v2 - v1;
+	v3 = v3 - v1;
+
+	v1 = cross(v2, v3);
+
+	glNormal3d(v1.x(), v1.y(), v1.z());
+
 }
 
 
