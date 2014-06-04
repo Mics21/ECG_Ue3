@@ -70,7 +70,7 @@ void cube_system::render_system()
 	render_cube();
 	glPopMatrix();
 
-	glRotated(angle, 0, 1, 0);
+	glRotated(-angle, 0, 1, 0);
 	glTranslated(5, 0, 0);
 	glScaled(0.6, 0.6, 0.6);
 	render_cube();
@@ -114,7 +114,7 @@ void cube_system::render_cube()
 
 // Vorderseite
 
-glBegin(GL_POLYGON);
+glBegin(GL_QUADS);
 glColor3d(   0,  0, 0 );
 glVertex3d( -1, -1, -1);       // P1        
 glVertex3d( -1,  1, -1);       // P2
@@ -124,10 +124,10 @@ glEnd();
 
 
 
-//Rückseite - weiß (einfarbig)
+//Rückseite - weiß (grau)
 
-glBegin(GL_POLYGON);
-glColor3d(   1.0,  1.0, 1.0 );
+glBegin(GL_QUADS);
+glColor3d(   0.8,  0.8, 0.8 );
 glVertex3d(  1, -1, 1 );
 glVertex3d(  1,  1, 1 );
 glVertex3d( -1,  1, 1 );
@@ -138,7 +138,7 @@ glEnd();
 
 //rechte Seite - lila (einfarbig)
 
-glBegin(GL_POLYGON);
+glBegin(GL_QUADS);
 glColor3d(  1.0,  0.0,  1.0 );
 glVertex3d( 1, -1, -1 );
 glVertex3d( 1,  1, -1 );
@@ -150,7 +150,7 @@ glEnd();
 
 //linke Seite - grün (einfarbig)
 
-glBegin(GL_POLYGON);
+glBegin(GL_QUADS);
 glColor3d(   0.0,  1.0,  0.0 );
 glVertex3d( -1, -1,  1 );
 glVertex3d( -1,  1,  1 );
@@ -162,7 +162,7 @@ glEnd();
 
 //obere Seite - blau (einfarbig)
 
-glBegin(GL_POLYGON);
+glBegin(GL_QUADS);
 glColor3d(   0.0,  0.0,  1.0 );
 glVertex3d(  1,  1,  1 );
 glVertex3d(  1,  1, -1 );
@@ -174,7 +174,7 @@ glEnd();
  
 //untere Seite - rot (einfarbig)
 
-glBegin(GL_POLYGON);
+glBegin(GL_QUADS);
 glColor3d(   1.0,  0.0,  0.0 );
 glVertex3d(  1, -1, -1 );
 glVertex3d(  1, -1,  1 );
